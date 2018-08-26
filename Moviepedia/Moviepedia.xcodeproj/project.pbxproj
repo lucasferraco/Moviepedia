@@ -12,6 +12,7 @@
 		3D3268CD213320F50012DEB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D3268CB213320F50012DEB0 /* Main.storyboard */; };
 		3D3268CF213320F70012DEB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D3268CE213320F70012DEB0 /* Assets.xcassets */; };
 		3D3268D2213320F70012DEB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D3268D0213320F70012DEB0 /* LaunchScreen.storyboard */; };
+		3D3268DE21335AB60012DEB0 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3268DD21335AB60012DEB0 /* Movie.swift */; };
 		3D3268E0213369870012DEB0 /* DateFormatter+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3268DF213369870012DEB0 /* DateFormatter+Helpers.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,7 @@
 		3D3268CE213320F70012DEB0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D3268D1213320F70012DEB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D3268D3213320F70012DEB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D3268DD21335AB60012DEB0 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		3D3268DF213369870012DEB0 /* DateFormatter+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Helpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +90,7 @@
 		3D3268DB213326600012DEB0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3D3268DD21335AB60012DEB0 /* Movie.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D3268CA213320F50012DEB0 /* ViewController.swift in Sources */,
+				3D3268DE21335AB60012DEB0 /* Movie.swift in Sources */,
 				3D3268E0213369870012DEB0 /* DateFormatter+Helpers.swift in Sources */,
 				3D3268C8213320F50012DEB0 /* AppDelegate.swift in Sources */,
 			);
