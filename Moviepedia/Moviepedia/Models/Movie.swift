@@ -51,7 +51,7 @@ class Movie: Decodable {
 		if let date = formatter.date(from: releaseDateString) {
 			releaseDate = date
 		} else {
-			throw DecodingError.dataCorruptedError(forKey: .releaseDate, in: container, debugDescription: "Date string does not match format expected by formatter.")
+			throw DecodingError.dataCorruptedError(forKey: .releaseDate, in: values, debugDescription: "Date string does not match format expected by formatter.")
 		}
 		
 		originalTitle = try values.decode(String.self, forKey: .originalTitle)
