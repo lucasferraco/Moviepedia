@@ -12,7 +12,22 @@
 		3D3268CD213320F50012DEB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D3268CB213320F50012DEB0 /* Main.storyboard */; };
 		3D3268CF213320F70012DEB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D3268CE213320F70012DEB0 /* Assets.xcassets */; };
 		3D3268D2213320F70012DEB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D3268D0213320F70012DEB0 /* LaunchScreen.storyboard */; };
+		3D3268DE21335AB60012DEB0 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3268DD21335AB60012DEB0 /* Movie.swift */; };
+		3D3268E0213369870012DEB0 /* DateFormatter+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3268DF213369870012DEB0 /* DateFormatter+Helpers.swift */; };
+		3D3268F621336F4D0012DEB0 /* MovieModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3268F521336F4D0012DEB0 /* MovieModelTests.swift */; };
+		3D3268FD213373600012DEB0 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3268DD21335AB60012DEB0 /* Movie.swift */; };
+		3D3268FE213375B80012DEB0 /* DateFormatter+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3268DF213369870012DEB0 /* DateFormatter+Helpers.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3D3268F821336F4D0012DEB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D3268BC213320F50012DEB0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3D3268C3213320F50012DEB0;
+			remoteInfo = Moviepedia;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3D3268C4213320F50012DEB0 /* Moviepedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moviepedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,10 +37,22 @@
 		3D3268CE213320F70012DEB0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D3268D1213320F70012DEB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D3268D3213320F70012DEB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D3268DD21335AB60012DEB0 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		3D3268DF213369870012DEB0 /* DateFormatter+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Helpers.swift"; sourceTree = "<group>"; };
+		3D3268F321336F4D0012DEB0 /* MoviepediaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviepediaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D3268F521336F4D0012DEB0 /* MovieModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModelTests.swift; sourceTree = "<group>"; };
+		3D3268F721336F4D0012DEB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		3D3268C1213320F50012DEB0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D3268F021336F4D0012DEB0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -39,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				3D3268C6213320F50012DEB0 /* Moviepedia */,
+				3D3268F421336F4D0012DEB0 /* MoviepediaTests */,
 				3D3268C5213320F50012DEB0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -47,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				3D3268C4213320F50012DEB0 /* Moviepedia.app */,
+				3D3268F321336F4D0012DEB0 /* MoviepediaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -78,6 +107,7 @@
 			children = (
 				3D3268C7213320F50012DEB0 /* AppDelegate.swift */,
 				3D3268D3213320F70012DEB0 /* Info.plist */,
+				3D3268DF213369870012DEB0 /* DateFormatter+Helpers.swift */,
 			);
 			path = "Suppoting Files";
 			sourceTree = "<group>";
@@ -85,6 +115,7 @@
 		3D3268DB213326600012DEB0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3D3268DD21335AB60012DEB0 /* Movie.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -94,6 +125,15 @@
 			children = (
 			);
 			path = Workers;
+			sourceTree = "<group>";
+		};
+		3D3268F421336F4D0012DEB0 /* MoviepediaTests */ = {
+			isa = PBXGroup;
+			children = (
+				3D3268F521336F4D0012DEB0 /* MovieModelTests.swift */,
+				3D3268F721336F4D0012DEB0 /* Info.plist */,
+			);
+			path = MoviepediaTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -116,6 +156,24 @@
 			productReference = 3D3268C4213320F50012DEB0 /* Moviepedia.app */;
 			productType = "com.apple.product-type.application";
 		};
+		3D3268F221336F4D0012DEB0 /* MoviepediaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D3268FA21336F4D0012DEB0 /* Build configuration list for PBXNativeTarget "MoviepediaTests" */;
+			buildPhases = (
+				3D3268EF21336F4D0012DEB0 /* Sources */,
+				3D3268F021336F4D0012DEB0 /* Frameworks */,
+				3D3268F121336F4D0012DEB0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3D3268F921336F4D0012DEB0 /* PBXTargetDependency */,
+			);
+			name = MoviepediaTests;
+			productName = MoviepediaTests;
+			productReference = 3D3268F321336F4D0012DEB0 /* MoviepediaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -128,6 +186,10 @@
 				TargetAttributes = {
 					3D3268C3213320F50012DEB0 = {
 						CreatedOnToolsVersion = 9.3;
+					};
+					3D3268F221336F4D0012DEB0 = {
+						CreatedOnToolsVersion = 9.3;
+						TestTargetID = 3D3268C3213320F50012DEB0;
 					};
 				};
 			};
@@ -145,6 +207,7 @@
 			projectRoot = "";
 			targets = (
 				3D3268C3213320F50012DEB0 /* Moviepedia */,
+				3D3268F221336F4D0012DEB0 /* MoviepediaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -160,6 +223,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3D3268F121336F4D0012DEB0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -168,11 +238,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D3268CA213320F50012DEB0 /* ViewController.swift in Sources */,
+				3D3268DE21335AB60012DEB0 /* Movie.swift in Sources */,
+				3D3268E0213369870012DEB0 /* DateFormatter+Helpers.swift in Sources */,
 				3D3268C8213320F50012DEB0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3D3268EF21336F4D0012DEB0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D3268FD213373600012DEB0 /* Movie.swift in Sources */,
+				3D3268FE213375B80012DEB0 /* DateFormatter+Helpers.swift in Sources */,
+				3D3268F621336F4D0012DEB0 /* MovieModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3D3268F921336F4D0012DEB0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3D3268C3213320F50012DEB0 /* Moviepedia */;
+			targetProxy = 3D3268F821336F4D0012DEB0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3D3268CB213320F50012DEB0 /* Main.storyboard */ = {
@@ -344,6 +434,46 @@
 			};
 			name = Release;
 		};
+		3D3268FB21336F4D0012DEB0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6PMD3Q4LVK;
+				INFOPLIST_FILE = MoviepediaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = lucasferraco.MoviepediaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moviepedia.app/Moviepedia";
+			};
+			name = Debug;
+		};
+		3D3268FC21336F4D0012DEB0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6PMD3Q4LVK;
+				INFOPLIST_FILE = MoviepediaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = lucasferraco.MoviepediaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moviepedia.app/Moviepedia";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -361,6 +491,15 @@
 			buildConfigurations = (
 				3D3268D7213320F70012DEB0 /* Debug */,
 				3D3268D8213320F70012DEB0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3D3268FA21336F4D0012DEB0 /* Build configuration list for PBXNativeTarget "MoviepediaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D3268FB21336F4D0012DEB0 /* Debug */,
+				3D3268FC21336F4D0012DEB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
