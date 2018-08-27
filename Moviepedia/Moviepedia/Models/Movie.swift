@@ -41,24 +41,24 @@ class Movie: Decodable {
 	required init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		
-		id = try values.decode(Int.self, forKey: .id)
-		title = try values.decode(String.self, forKey: .title)
-		overview = try values.decode(String.self, forKey: .overview)
-		genreIds = try values.decode([Int].self, forKey: .genreIds)
+		id = try? values.decode(Int.self, forKey: .id)
+		title = try? values.decode(String.self, forKey: .title)
+		overview = try? values.decode(String.self, forKey: .overview)
+		genreIds = try? values.decode([Int].self, forKey: .genreIds)
 		
-		let releaseDateString = try values.decode(String.self, forKey: .releaseDate)
+		let releaseDateString = try? values.decode(String.self, forKey: .releaseDate)
 		let formatter = DateFormatter.yyyyMMddFormat
-		if let date = formatter.date(from: releaseDateString) {
+		if let unwrappedString = releaseDateString, let date = formatter.date(from: unwrappedString) {
 			releaseDate = date
 		} else {
-			throw DecodingError.dataCorruptedError(forKey: .releaseDate, in: values, debugDescription: "Date string does not match format expected by formatter.")
+			releaseDate = nil
 		}
 		
-		originalTitle = try values.decode(String.self, forKey: .originalTitle)
-		originalLanguage = try values.decode(String.self, forKey: .originalLanguage)
+		originalTitle = try? values.decode(String.self, forKey: .originalTitle)
+		originalLanguage = try? values.decode(String.self, forKey: .originalLanguage)
 		
-		posterPath = try values.decode(String.self, forKey: .posterPath)
-		backdropPath = try values.decode(String.self, forKey: .backdropPath)
+		posterPath = try? values.decode(String.self, forKey: .posterPath)
+		backdropPath = try? values.decode(String.self, forKey: .backdropPath)
 	}
 	
 }

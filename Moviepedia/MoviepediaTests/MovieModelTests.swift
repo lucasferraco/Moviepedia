@@ -11,7 +11,7 @@ import Foundation
 
 class MovieModelTests: XCTestCase {
 	
-    func testMovieDecoding() {
+    func testCompleteMovieDecoding() {
         let json = """
 		{
 		    "vote_count": 0,
@@ -54,4 +54,56 @@ class MovieModelTests: XCTestCase {
 			XCTFail()
 		}
     }
+	
+	func testNilMovieDecoding() {
+		let json = """
+		{
+		    "vote_count": 0,
+		    "id": null,
+		    "video": false,
+		    "vote_average": 0,
+		    "title": null,
+		    "popularity": 20.592,
+		    "poster_path": null,
+		    "original_language": null,
+		    "original_title": null,
+		    "genre_ids": null,
+		    "backdrop_path": null,
+		    "adult": false,
+		    "overview": null,
+		    "release_date": null
+		}
+		""".data(using: .utf8)!
+		
+		do {
+			let movie = try JSONDecoder().decode(Movie.self, from: json)
+			
+			XCTAssertNil(movie.id)
+			XCTAssertNil(movie.title)
+			XCTAssertNil(movie.overview)
+			XCTAssertNil(movie.genreIds)
+			XCTAssertNil(movie.releaseDate)
+			XCTAssertNil(movie.originalTitle)
+			XCTAssertNil(movie.originalLanguage)
+			XCTAssertNil(movie.posterPath)
+			XCTAssertNil(movie.backdropPath)
+		} catch _ {
+			XCTFail()
+		}
+	}
+	
+	func testWrongReleaseDateFormatDecoding() {
+		let json = """
+		{
+		    "release_date": "07/09/2018"
+		}
+		""".data(using: .utf8)!
+		
+		do {
+			let movie = try JSONDecoder().decode(Movie.self, from: json)
+			XCTAssertNil(movie.releaseDate)
+		} catch _ {
+			XCTFail()
+		}
+	}
 }
