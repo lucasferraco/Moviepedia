@@ -42,6 +42,12 @@ class MoviesAPIWorker: TMDbClient {
 	
 	//MARK:- Public Methods
 	
+	/// Downloads a list of movies' information according to the specified type.
+	///
+	/// - Parameters:
+	///   - type: The type of list wanted.
+	///   - page: The number of the page to be downloaded.
+	///   - completion: The handler to be called once the request has finished.
 	public func fetchMoviesList(of type: ListType, on page: Int? = nil, _ completion: @escaping ([Movie]?, MoviesAPIWorkerError?) -> Void) {
 		let fullURLString = url(for: .movie) + type.rawValue
 		let params = getParameters([.page, .languageCode, .regionCode], forPage: page)
