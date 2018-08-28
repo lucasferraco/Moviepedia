@@ -10,13 +10,27 @@ import Foundation
 
 class TMDbClient {
 	
-	internal let baseURL = "https://api.themoviedb.org/3"
-	internal let apiKey = "1f54bd990f1cdfb230adb312546d765d"
+	//MARK:- API's properties
+	
+	private let baseURL = "https://api.themoviedb.org/3"
+	private let apiKey = "1f54bd990f1cdfb230adb312546d765d"
+	
+	internal enum EndPoint: String {
+		case movie 			= "/movie"
+		case configuration 	= "/configuration"
+		case genre 			= "/genre"
+	}
 	
 	internal enum Parameter: String {
 		case page 			= "page"
 		case languageCode	= "language"
 		case regionCode 	= "region"
+	}
+	
+	//MARK:- Shared Methods
+	
+	internal func url(for endPoint: EndPoint) -> String {
+		return baseURL + endPoint.rawValue
 	}
 	
 	internal func getParameters(_ options: Set<Parameter>, forPage page: Int? = nil) -> [String : Any] {

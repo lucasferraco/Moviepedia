@@ -21,10 +21,6 @@ class MoviesAPIWorker: TMDbClient {
 	
 	private let networkDecodableWorker = NetworkDecodableWorker()
 	
-	//MARK:- API's properties
-	
-	private let movieEndpoint = "/movie"
-	
 	public enum ListType: String {
 		case upcoming 		= "/upcoming"
 		case topRated 		= "/top_rated"
@@ -46,7 +42,7 @@ class MoviesAPIWorker: TMDbClient {
 	//MARK:- Public Methods
 	
 	public func fetchMoviesList(of type: ListType, on page: Int? = nil, _ completion: @escaping ([Movie]?, MoviesAPIWorkerError?) -> Void) {
-		let fullURLString = baseURL + movieEndpoint + type.rawValue
+		let fullURLString = url(for: .movie) + type.rawValue
 		let params = getParameters([.page, .languageCode, .regionCode], forPage: page)
 		
 		networkDecodableWorker.get(from: fullURLString, with: params) { (movies: [Movie]?, networkError) in
