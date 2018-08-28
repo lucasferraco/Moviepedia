@@ -12,7 +12,7 @@ import Alamofire
 enum NetworkDecodableWorkerError: Error {
 	case NoConnection
 	case MalformedData
-	case Failed
+	case Failure
 }
 
 class NetworkDecodableWorker {
@@ -34,7 +34,7 @@ class NetworkDecodableWorker {
 				.validate()
 				.responseJSON { (response) in
 					guard response.result.isSuccess else {
-						return completion(nil, .Failed)
+						return completion(nil, .Failure)
 					}
 					
 					guard let decodableData = response.result.value as? [T] else {
