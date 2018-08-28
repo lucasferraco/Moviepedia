@@ -12,7 +12,7 @@
 
 import Foundation
 
-enum MoviesAPIWorkerError {
+enum MoviesAPIWorkerError: Error {
 	case NoConnection
 	case Failure
 }
@@ -50,7 +50,7 @@ class MoviesAPIWorker: TMDbClient {
 	///   - completion: The handler to be called once the request has finished.
 	public func fetchMoviesList(of type: ListType, on page: Int? = nil, _ completion: @escaping ([Movie]?, MoviesAPIWorkerError?) -> Void) {
 		let fullURLString = url(for: .movie) + type.rawValue
-		let params = getParameters([.page, .languageCode, .regionCode], forPage: page)
+		let params = parameters([.page, .languageCode, .regionCode], forPage: page)
 		
 		networkDecodableWorker.get(from: fullURLString, with: params) { (movies: [Movie]?, networkError) in
 			if let error = networkError {

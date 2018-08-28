@@ -24,7 +24,7 @@ class NetworkDecodableWorker {
 	///   - parameters: The parameters.
 	///   - headers: The headers.
 	///   - completion: The handler to be called once the request has finished.
-	public func get<T>(from urlString: String, with parameters: [String : Any]? = nil, headers: [String : String]? = nil, _ completion: @escaping ([T]?, NetworkDecodableWorkerError?) -> Void) where T : Decodable {
+	public func get<T>(from urlString: String, with parameters: [String : Any]? = nil, headers: [String : String]? = nil, _ completion: @escaping (T?, NetworkDecodableWorkerError?) -> Void) where T : Decodable {
 		guard hasConnection() else {
 			return completion(nil, .NoConnection)
 		}
@@ -37,7 +37,7 @@ class NetworkDecodableWorker {
 						return completion(nil, .Failure)
 					}
 					
-					guard let decodableData = response.result.value as? [T] else {
+					guard let decodableData = response.result.value as? T else {
 						return completion(nil, .MalformedData)
 					}
 					

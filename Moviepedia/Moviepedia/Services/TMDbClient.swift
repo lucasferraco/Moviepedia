@@ -10,22 +10,44 @@ import Foundation
 
 class TMDbClient {
 	
-	//MARK:- API's properties
-	
-	private let baseURL = "https://api.themoviedb.org/3"
-	private let apiKey = "1f54bd990f1cdfb230adb312546d765d"
-	
+    //MARK:- Auxiliary Structs
+    
 	internal enum EndPoint: String {
 		case movie 			= "/movie"
 		case configuration 	= "/configuration"
 		case genre 			= "/genre"
 	}
-	
-	internal enum Parameter: String {
-		case page 			= "page"
-		case languageCode	= "language"
-		case regionCode 	= "region"
-	}
+    
+    internal enum Parameter: String {
+        case page 			= "page"
+        case languageCode	= "language"
+        case regionCode 	= "region"
+    }
+    
+    internal struct Properties: Decodable {
+        let images: ImageProperties?
+        
+        struct ImageProperties: Decodable {
+            var baseURL: String?
+            var safeBaseURL: String?
+            var backdropSizes: [String]?
+            var posterSizes: [String]?
+            
+            private enum CodingKeys: String, CodingKey {
+                case baseURL        = "base_url"
+                case safeBaseURL    = "secure_base_url"
+                case backdropSizes  = "backdrop_sizes"
+                case posterSizes    = "poster_sizes"
+            }
+        }
+    }
+    
+    
+    //MARK:- API's properties
+    
+    private let baseURL = "https://api.themoviedb.org/3"
+    private let apiKey = "1f54bd990f1cdfb230adb312546d765d"
+    internal var properties: Properties?
 	
 	//MARK:- Shared Methods
 	
@@ -33,7 +55,7 @@ class TMDbClient {
 		return baseURL + endPoint.rawValue
 	}
 	
-	internal func getParameters(_ options: Set<Parameter>, forPage page: Int? = nil) -> [String : Any] {
+	internal func parameters(_ options: Set<Parameter> = [], forPage page: Int? = nil) -> [String : Any] {
 		var params: [String : Any] = [:]
 		params.updateValue(apiKey, forKey: "api_key")
 		

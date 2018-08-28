@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2D9A126421356F4A0022D362 /* MoviesAPIWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9A126321356F4A0022D362 /* MoviesAPIWorker.swift */; };
+		2D9A1266213585BC0022D362 /* ImageDownloadWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9A1265213585BC0022D362 /* ImageDownloadWorker.swift */; };
 		3D3268C8213320F50012DEB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3268C7213320F50012DEB0 /* AppDelegate.swift */; };
 		3D3268CA213320F50012DEB0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3268C9213320F50012DEB0 /* ViewController.swift */; };
 		3D3268CD213320F50012DEB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D3268CB213320F50012DEB0 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		2D9A126321356F4A0022D362 /* MoviesAPIWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesAPIWorker.swift; sourceTree = "<group>"; };
+		2D9A1265213585BC0022D362 /* ImageDownloadWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadWorker.swift; sourceTree = "<group>"; };
 		3D3268C4213320F50012DEB0 /* Moviepedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moviepedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3268C7213320F50012DEB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D3268C9213320F50012DEB0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			children = (
 				2D9A126321356F4A0022D362 /* MoviesAPIWorker.swift */,
 				3D9C3FA12134CE3D005B9ECB /* NetworkDecodableWorker.swift */,
+				2D9A1265213585BC0022D362 /* ImageDownloadWorker.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D3268CA213320F50012DEB0 /* ViewController.swift in Sources */,
+				2D9A1266213585BC0022D362 /* ImageDownloadWorker.swift in Sources */,
 				3D3268DE21335AB60012DEB0 /* Movie.swift in Sources */,
 				3D3268E0213369870012DEB0 /* DateFormatter+Helpers.swift in Sources */,
 				3D9C3FA22134CE3D005B9ECB /* NetworkDecodableWorker.swift in Sources */,
