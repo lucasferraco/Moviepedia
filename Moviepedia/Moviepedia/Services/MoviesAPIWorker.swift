@@ -17,14 +17,13 @@ enum MoviesAPIWorkerError {
 	case Failure
 }
 
-class MoviesAPIWorker {
+class MoviesAPIWorker: TMDbClient {
 	
 	private let networkDecodableWorker = NetworkDecodableWorker()
 	
 	//MARK:- API's properties
 	
-	private let baseURL = "https://api.themoviedb.org/3/movie"
-	private let apiKey = "1f54bd990f1cdfb230adb312546d765d"
+	private let movieEndpoint = "/movie"
 	
 	public enum ListType: String {
 		case upcoming 		= "/upcoming"
@@ -47,8 +46,8 @@ class MoviesAPIWorker {
 	//MARK:- Public Methods
 	
 	public func fetchMoviesList(of type: ListType, on page: Int? = nil, _ completion: @escaping ([Movie]?, MoviesAPIWorkerError?) -> Void) {
-		let fullURLString = baseURL + type.rawValue
-		let params = listParameters(with: page)
+		let fullURLString = baseURL + movieEndpoint + type.rawValue
+		let params = getParameters([.page, .languageCode, .regionCode], forPage: page)
 		
 		networkDecodableWorker.get(from: fullURLString, with: params) { (movies: [Movie]?, networkError) in
 			if let error = networkError {
@@ -67,36 +66,6 @@ class MoviesAPIWorker {
 	}
 	
 	//MARK:- Auxiliary Methods
-	
-	private func listParameters(with page: Int?) -> [String : Any] {
-		var params: [String : Any] = [:]
-		
-		params.updateValue(apiKey, forKey: "api_key")
-		
-		if let page = page {
-			params.updateValue(page, forKey: "page")
-		}
-		
-		if let languageCode = currentLanguageCode() {
-			params.updateValue(languageCode, forKey: "language")
-		}
-		
-		if let regionCode = currentRegionCode() {
-			params.updateValue(regionCode, forKey: "region")
-		}
-		
-		return params
-	}
-	
-	private func currentLanguageCode() -> String? {
-		let currentLocale = Locale.current
-		return currentLocale.languageCode
-	}
-	
-	private func currentRegionCode() -> String? {
-		let currentLocale = Locale.current
-		return currentLocale.regionCode
-	}
 	
 	private func getMoviesAPIError(from networkError: NetworkDecodableWorkerError) -> MoviesAPIWorkerError {
 		switch networkError {

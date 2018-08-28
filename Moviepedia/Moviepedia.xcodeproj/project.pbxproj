@@ -17,6 +17,7 @@
 		3D3268F621336F4D0012DEB0 /* MovieModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3268F521336F4D0012DEB0 /* MovieModelTests.swift */; };
 		3D3268FD213373600012DEB0 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3268DD21335AB60012DEB0 /* Movie.swift */; };
 		3D3268FE213375B80012DEB0 /* DateFormatter+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3268DF213369870012DEB0 /* DateFormatter+Helpers.swift */; };
+		3D38F04D213504AA007C0624 /* TMDbClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D38F04C213504AA007C0624 /* TMDbClient.swift */; };
 		3D84718E2134D88A0006A8FF /* MoviesAPIWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D84718D2134D88A0006A8FF /* MoviesAPIWorker.swift */; };
 		3D9C3FA22134CE3D005B9ECB /* NetworkDecodableWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C3FA12134CE3D005B9ECB /* NetworkDecodableWorker.swift */; };
 		DE91A819A4C2DD1503C197FE /* Pods_Moviepedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD8A3920BC634675D3E5B13 /* Pods_Moviepedia.framework */; };
@@ -45,6 +46,7 @@
 		3D3268F321336F4D0012DEB0 /* MoviepediaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviepediaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3268F521336F4D0012DEB0 /* MovieModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModelTests.swift; sourceTree = "<group>"; };
 		3D3268F721336F4D0012DEB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D38F04C213504AA007C0624 /* TMDbClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDbClient.swift; sourceTree = "<group>"; };
 		3D84718D2134D88A0006A8FF /* MoviesAPIWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAPIWorker.swift; sourceTree = "<group>"; };
 		3D9C3FA12134CE3D005B9ECB /* NetworkDecodableWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDecodableWorker.swift; sourceTree = "<group>"; };
 		586923E4AC2E236A85AD6692 /* Pods-Moviepedia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moviepedia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Moviepedia/Pods-Moviepedia.release.xcconfig"; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				3D84718D2134D88A0006A8FF /* MoviesAPIWorker.swift */,
+				3D38F04C213504AA007C0624 /* TMDbClient.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				3D3268E0213369870012DEB0 /* DateFormatter+Helpers.swift in Sources */,
 				3D84718E2134D88A0006A8FF /* MoviesAPIWorker.swift in Sources */,
 				3D9C3FA22134CE3D005B9ECB /* NetworkDecodableWorker.swift in Sources */,
+				3D38F04D213504AA007C0624 /* TMDbClient.swift in Sources */,
 				3D3268C8213320F50012DEB0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
