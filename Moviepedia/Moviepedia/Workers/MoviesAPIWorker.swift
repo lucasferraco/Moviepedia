@@ -10,7 +10,7 @@
 //  see http://clean-swift.com
 //
 
-import UIKit
+import Foundation
 
 enum MoviesAPIWorkerError {
 	case NoConnection
@@ -38,6 +38,7 @@ class MoviesAPIWorker: TMDbClient {
 			return theOnlyInstance!
 		}
 	}
+	private override init() {}
 	
 	//MARK:- Public Methods
 	
