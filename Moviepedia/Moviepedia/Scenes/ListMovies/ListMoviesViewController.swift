@@ -88,6 +88,8 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 	
 	fileprivate func setupMoviesCollection() {
 		collectionManager = MovieCollectionViewManager(of: moviesCollectionView)
+		collectionManager.delegate = self
+		
 		moviesCollectionView.dataSource = collectionManager
 		moviesCollectionView.delegate = collectionManager
 		
@@ -102,5 +104,12 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 		} else {
 			layout.scrollDirection = .vertical
 		}
+	}
+}
+
+extension ListMoviesViewController: MovieCollectionViewManagerProtocol {
+	func getImageForMovie(with movieInfo: ListMovies.DisplayableMovieInfo, _ completion: @escaping (UIImage) -> Void) {
+		let request = ListMovies.GetMovieImage.Request(movieId: movieInfo.id)
+		interactor?.getMovieImage(with: request, completion)
 	}
 }

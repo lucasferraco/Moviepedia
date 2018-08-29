@@ -14,16 +14,23 @@ import UIKit
 
 protocol ListMoviesPresentationLogic {
 	func presentMoviesList(with response: ListMovies.ListMovies.Response)
+	func presentMovieImage(with response: ListMovies.GetMovieImage.Response, _ completion: @escaping (UIImage) -> Void)
 }
 
 class ListMoviesPresenter: ListMoviesPresentationLogic {
 	weak var viewController: ListMoviesDisplayLogic?
+	
+	private var presentedMoviesInfo: [ListMovies.DisplayableMovieInfo] = []
 	
 	//MARK:- ListMoviesPresentationLogic protocol
 	
 	func presentMoviesList(with response: ListMovies.ListMovies.Response) {
 		let moviesInfo = response.movies?.map { (movie) -> ListMovies.DisplayableMovieInfo in
 			return displayableInfo(from: movie)
+		}
+		
+		if let moviesInfo = moviesInfo {
+			presentedMoviesInfo = moviesInfo
 		}
 		
 		var errorMessage: String? = nil
@@ -36,6 +43,24 @@ class ListMoviesPresenter: ListMoviesPresentationLogic {
 		// UI operations should only be done on the main thread
 		DispatchQueue.main.async {
 			self.viewController?.displayMoviesList(with: viewModel)
+		}
+	}
+	
+	func presentMovieImage(with response: ListMovies.GetMovieImage.Response, _ completion: @escaping (UIImage) -> Void) {
+		var movieImage: UIImage
+		if let image = response.movieImage {
+			var presentedMovie = presentedMoviesInfo.first { (movieInfo) -> Bool in
+				return response.movieId == movieInfo.id
+			}
+			presentedMovie?.image = image
+			
+			movieImage = image
+		} else {
+			movieImage = #imageLiteral(resourceName: "defaultMovieImage.png")
+		}
+		
+		DispatchQueue.main.async {
+			completion(movieImage)
 		}
 	}
 	

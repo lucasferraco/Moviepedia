@@ -8,19 +8,21 @@
 
 import UIKit
 
-class MovieCollectionViewManager: UICollectionViewFlowLayout, UICollectionViewDataSource {
+protocol MovieCollectionViewManagerProtocol {
+	func getImageForMovie(with movieInfo: ListMovies.DisplayableMovieInfo, _ completion: @escaping (UIImage) -> Void)
+}
+
+class MovieCollectionViewManager: NSObject, UICollectionViewDataSource {
 	
 	fileprivate let defaultPadding: CGFloat = 20.0
 	
 	var data: [ListMovies.DisplayableMovieInfo]! = []
+	var delegate: MovieCollectionViewManagerProtocol?
 	
 	init(of collection: UICollectionView) {
 		super.init()
 		collection.register(MovieCollectionViewCell.nib, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
-	}
-	
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+		collection.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
 	}
 	
 	//MARK:- UICollectionViewDataSource
@@ -35,6 +37,9 @@ class MovieCollectionViewManager: UICollectionViewFlowLayout, UICollectionViewDa
 		}
 		
 		movieCell.configure(with: data[indexPath.row])
+		delegate?.getImageForMovie(with: data[indexPath.row]) { (image) in
+			movieCell.setBackground(with: image)
+		}
 		
 		return movieCell
 	}

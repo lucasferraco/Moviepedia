@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DN7-fH-f0I">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultMovieImage" translatesAutoresizingMaskIntoConstraints="NO" id="DN7-fH-f0I">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="dfI-VS-pn1">
@@ -67,4 +67,7 @@
             </connections>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="defaultMovieImage" width="300" height="407"/>
+    </resources>
 </document>

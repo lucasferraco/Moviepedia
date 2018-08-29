@@ -14,7 +14,7 @@ import UIKit
 
 enum ListMovies {
 	
-	// MARK: Get Movies
+	// MARK: List Movies
 	
 	struct DisplayableMovieInfo {
 		var id: Int
@@ -33,6 +33,24 @@ enum ListMovies {
 		struct ViewModel {
 			let moviesInfo: [DisplayableMovieInfo]?
 			let errorMessage: String?
+		}
+	}
+	
+	// MARK: Get Movie Image
+	
+	enum GetMovieImage {
+		struct Request {
+			let movieId: Int
+		}
+		
+		struct Response {
+			let movieId: Int
+			let movieImage: UIImage?
+		}
+		
+		struct ViewModel {
+			let movieId: Int
+			let movieImage: UIImage
 		}
 	}
 }

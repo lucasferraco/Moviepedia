@@ -14,6 +14,7 @@ import UIKit
 
 protocol ListMoviesBusinessLogic {
 	func getUpcomingMovies()
+	func getMovieImage(with request: ListMovies.GetMovieImage.Request, _ completion: @escaping (UIImage) -> Void)
 }
 
 protocol ListMoviesDataStore {
@@ -23,9 +24,11 @@ protocol ListMoviesDataStore {
 class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
 	var presenter: ListMoviesPresentationLogic?
 	
+	var movies: [Movie] = []
 	var moviesWorker = MoviesAPIWorker.shared
-	var downloadImageWorker = DownloadImageAPIWorker.shared
 	private var currentPage = 1
+	
+	var downloadImageWorker = DownloadImageAPIWorker.shared
 	
 	// MARK:- ListMoviesDataStore protocol
 	
@@ -35,8 +38,64 @@ class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
 	
 	func getUpcomingMovies() {
 		moviesWorker.fetchMoviesList(of: .upcoming, on: currentPage) { (movies, error) in
+			if let movies = movies {
+				self.movies = movies
+			}
+			
 			let response = ListMovies.ListMovies.Response(movies: movies, error: error)
 			self.presenter?.presentMoviesList(with: response)
 		}
+	}
+	
+	func getMovieImage(with request: ListMovies.GetMovieImage.Request, _ completion: @escaping (UIImage) -> Void) {
+		let chosenMovie = movies.first { (movie) -> Bool in
+			return request.movieId == movie.id
+		}
+		
+		if let posterImage = chosenMovie?.posterImage {
+			present(image: posterImage, id: request.movieId, completion)
+			return
+		} else if let backdropImage = chosenMovie?.backdropImage {
+			present(image: backdropImage, id: request.movieId, completion)
+			return
+		}
+		
+		let (path, imageType) = getImagePath(for: chosenMovie)
+		
+		guard !path.isEmpty else {
+			self.present(image: nil, id: request.movieId, completion)
+			return
+		}
+		
+		downloadImageWorker.downloadImage(from: path, type: imageType) { (callbackPath, image) in
+			switch imageType {
+			case .poster:
+				chosenMovie?.posterImage = image
+			case .backdrop:
+				chosenMovie?.backdropImage = image
+			}
+			
+				self.present(image: image, id: request.movieId, completion)
+		}
+	}
+	
+	//MARK:- Auxiliary Methods
+	
+	private func present(image: UIImage?, id: Int, _ completion: @escaping (UIImage) -> Void) {
+		let response = ListMovies.GetMovieImage.Response(movieId: id, movieImage: image)
+		self.presenter?.presentMovieImage(with: response, completion)
+	}
+	
+	private func getImagePath(for movie: Movie?) -> (path: String, type: DownloadImageAPIWorker.ImageType) {
+		var path = ""
+		var imageType: DownloadImageAPIWorker.ImageType = .poster
+		if let posterPath = movie?.posterPath {
+			path = posterPath
+		} else if let backdropPath = movie?.backdropPath {
+			path = backdropPath
+			imageType = .backdrop
+		}
+		
+		return (path, imageType)
 	}
 }
