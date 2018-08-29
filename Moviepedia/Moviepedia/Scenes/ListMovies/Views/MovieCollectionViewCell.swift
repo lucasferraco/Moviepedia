@@ -11,6 +11,7 @@ import UIKit
 class MovieCollectionViewCell: UICollectionViewCell {
 	
 	static let identifier = "MovieCollectionViewCell"
+	static let nib = UINib(nibName: MovieCollectionViewCell.identifier, bundle: Bundle.main)
 
 	@IBOutlet weak fileprivate var backgroundImageView: UIImageView!
 	@IBOutlet weak fileprivate var titleLabel: UILabel!

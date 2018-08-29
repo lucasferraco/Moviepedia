@@ -83,7 +83,7 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 	//MARK:- Auxiliary Methods
 	
 	fileprivate func setupMoviesCollection() {
-		moviesCollectionView.register(UINib(nibName: MovieCollectionViewCell.identifier, bundle: Bundle.main), forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
+		moviesCollectionView.register(MovieCollectionViewCell.nib, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
 		moviesCollectionView.dataSource = self
 	}
 }
