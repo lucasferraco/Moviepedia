@@ -13,25 +13,30 @@
 import UIKit
 
 protocol ListMoviesBusinessLogic {
-	func doSomething(request: ListMovies.Something.Request)
+	func getUpcomingMovies()
 }
 
 protocol ListMoviesDataStore {
-	//var name: String { get set }
+	var movie: Movie? { get set }
 }
 
 class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
 	var presenter: ListMoviesPresentationLogic?
-	var worker: ListMoviesWorker?
-	//var name: String = ""
 	
-	// MARK: Do something
+	var moviesWorker = MoviesAPIWorker.shared
+	var downloadImageWorker = DownloadImageAPIWorker.shared
+	private var currentPage = 1
 	
-	func doSomething(request: ListMovies.Something.Request) {
-		worker = ListMoviesWorker()
-		worker?.doSomeWork()
-		
-		let response = ListMovies.Something.Response()
-		presenter?.presentSomething(response: response)
+	// MARK:- ListMoviesDataStore protocol
+	
+	var movie: Movie? = nil
+	
+	// MARK:- ListMoviesBusinessLogic protocol
+	
+	func getUpcomingMovies() {
+		moviesWorker.fetchMoviesList(of: .upcoming, on: currentPage) { (movies, error) in
+			let response = ListMovies.ListMovies.Response(movies: movies, error: error)
+			self.presenter?.presentMoviesList(with: response)
+		}
 	}
 }

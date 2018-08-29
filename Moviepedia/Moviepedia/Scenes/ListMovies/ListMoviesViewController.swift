@@ -13,14 +13,17 @@
 import UIKit
 
 protocol ListMoviesDisplayLogic: class {
-	func displaySomething(viewModel: ListMovies.Something.ViewModel)
+	func displayMoviesList(with viewModel: ListMovies.ListMovies.ViewModel)
 }
 
 class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 	var interactor: ListMoviesBusinessLogic?
 	var router: (NSObjectProtocol & ListMoviesRoutingLogic & ListMoviesDataPassing)?
 	
-	// MARK: Object lifecycle
+	var moviesDatasource: [ListMovies.DisplayableMovieInfo] = []
+	@IBOutlet weak var moviesCollectionView: UICollectionView!
+	
+	//MARK:- Object lifecycle
 	
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -32,7 +35,7 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 		setup()
 	}
 	
-	// MARK: Setup
+	//MARK:- Setup
 	
 	private func setup() {
 		let viewController = self
@@ -47,7 +50,7 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 		router.dataStore = interactor
 	}
 	
-	// MARK: Routing
+	//MARK:- Routing
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if let scene = segue.identifier {
@@ -58,23 +61,49 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 		}
 	}
 	
-	// MARK: View lifecycle
+	//MARK:- View lifecycle
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		doSomething()
+		
+		setupMoviesCollection()
+		
+		interactor?.getUpcomingMovies()
 	}
 	
-	// MARK: Do something
+	//MARK:- ListMoviesDisplayLogic
 	
-	//@IBOutlet weak var nameTextField: UITextField!
-	
-	func doSomething() {
-		let request = ListMovies.Something.Request()
-		interactor?.doSomething(request: request)
+	func displayMoviesList(with viewModel: ListMovies.ListMovies.ViewModel) {
+		if let moviesInfo = viewModel.moviesInfo {
+			moviesDatasource = moviesInfo
+			moviesCollectionView.reloadData()
+		}
 	}
 	
-	func displaySomething(viewModel: ListMovies.Something.ViewModel) {
-		//nameTextField.text = viewModel.name
+	//MARK:- Auxiliary Methods
+	
+	fileprivate func setupMoviesCollection() {
+		moviesCollectionView.register(UINib(nibName: MovieCollectionViewCell.identifier, bundle: Bundle.main), forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
+		moviesCollectionView.dataSource = self
 	}
+}
+
+//MARK:- UICollectionViewDataSource
+
+extension ListMoviesViewController: UICollectionViewDataSource {
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return moviesDatasource.count
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		guard let movieCell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCollectionViewCell.identifier, for: indexPath) as? MovieCollectionViewCell else {
+			return UICollectionViewCell()
+		}
+		
+		movieCell.configure(with: moviesDatasource[indexPath.row])
+		
+		return movieCell
+	}
+	
+	
 }

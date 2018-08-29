@@ -13,16 +13,68 @@
 import UIKit
 
 protocol ListMoviesPresentationLogic {
-	func presentSomething(response: ListMovies.Something.Response)
+	func presentMoviesList(with response: ListMovies.ListMovies.Response)
 }
 
 class ListMoviesPresenter: ListMoviesPresentationLogic {
 	weak var viewController: ListMoviesDisplayLogic?
 	
-	// MARK: Do something
+	//MARK:- ListMoviesPresentationLogic protocol
 	
-	func presentSomething(response: ListMovies.Something.Response) {
-		let viewModel = ListMovies.Something.ViewModel()
-		viewController?.displaySomething(viewModel: viewModel)
+	func presentMoviesList(with response: ListMovies.ListMovies.Response) {
+		let moviesInfo = response.movies?.map { (movie) -> ListMovies.DisplayableMovieInfo in
+			return displayableInfo(from: movie)
+		}
+		
+		var errorMessage: String? = nil
+		if let error = response.error {
+			errorMessage = message(for: error)
+		}
+		
+		let viewModel = ListMovies.ListMovies.ViewModel(moviesInfo: moviesInfo, errorMessage: errorMessage)
+		
+		// UI operations should only be done on the main thread
+		DispatchQueue.main.async {
+			self.viewController?.displayMoviesList(with: viewModel)
+		}
+	}
+	
+	//MARK:- Auxiliary methods
+	
+	private func displayableInfo(from movie: Movie) -> ListMovies.DisplayableMovieInfo {
+		let id = movie.id ?? -1
+		
+		var movieTitle = ""
+		if let title = movie.title {
+			movieTitle = title
+		} else if let originalTitle = movie.originalTitle {
+			movieTitle = originalTitle
+		}
+		
+		var genresString = ""
+		if let genreIds = movie.genreIds {
+			let genreIdsReduced = genreIds.reduce(into: "", { (genresString, id) in
+				genresString += String(id) + ", "
+			}).dropLast(2)
+			
+			genresString = String(genreIdsReduced)
+		}
+		
+		let dateFormatter = DateFormatter.yyyyMMddFormat
+		var releaseDate = ""
+		if let dateObj = movie.releaseDate {
+			releaseDate = dateFormatter.string(from: dateObj)
+		}
+		
+		return ListMovies.DisplayableMovieInfo(id: id, title: movieTitle, image: nil, genre: genresString, releaseDate: releaseDate)
+	}
+	
+	private func message(for error: MoviesAPIWorkerError) -> String {
+		switch error {
+		case .NoConnection:
+			return "No internet connection.\nConnect to a network and try again."
+		case .Failure:
+			return "We had problems fetching the movies info, please try again later."
+		}
 	}
 }

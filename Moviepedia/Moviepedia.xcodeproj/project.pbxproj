@@ -25,6 +25,8 @@
 		3D38F06E2136499E007C0624 /* ListMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D38F0682136499E007C0624 /* ListMoviesViewController.swift */; };
 		3D38F06F2136499E007C0624 /* ListMoviesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D38F0692136499E007C0624 /* ListMoviesInteractor.swift */; };
 		3D38F071213649CA007C0624 /* ListMovies.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D38F070213649CA007C0624 /* ListMovies.storyboard */; };
+		3D38F0752136D480007C0624 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D38F0732136D480007C0624 /* MovieCollectionViewCell.swift */; };
+		3D38F0762136D480007C0624 /* MovieCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D38F0742136D480007C0624 /* MovieCollectionViewCell.xib */; };
 		3D9C3FA22134CE3D005B9ECB /* NetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C3FA12134CE3D005B9ECB /* NetworkWorker.swift */; };
 		DE91A819A4C2DD1503C197FE /* Pods_Moviepedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD8A3920BC634675D3E5B13 /* Pods_Moviepedia.framework */; };
 /* End PBXBuildFile section */
@@ -60,6 +62,8 @@
 		3D38F0682136499E007C0624 /* ListMoviesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMoviesViewController.swift; sourceTree = "<group>"; };
 		3D38F0692136499E007C0624 /* ListMoviesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMoviesInteractor.swift; sourceTree = "<group>"; };
 		3D38F070213649CA007C0624 /* ListMovies.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ListMovies.storyboard; sourceTree = "<group>"; };
+		3D38F0732136D480007C0624 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		3D38F0742136D480007C0624 /* MovieCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieCollectionViewCell.xib; sourceTree = "<group>"; };
 		3D9C3FA12134CE3D005B9ECB /* NetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkWorker.swift; sourceTree = "<group>"; };
 		586923E4AC2E236A85AD6692 /* Pods-Moviepedia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moviepedia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Moviepedia/Pods-Moviepedia.release.xcconfig"; sourceTree = "<group>"; };
 		CFD8A3920BC634675D3E5B13 /* Pods_Moviepedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moviepedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,7 +179,7 @@
 		3D38F0632136499E007C0624 /* ListMovies */ = {
 			isa = PBXGroup;
 			children = (
-				3D38F070213649CA007C0624 /* ListMovies.storyboard */,
+				3D38F0722136D44E007C0624 /* Views */,
 				3D38F0642136499E007C0624 /* ListMoviesModels.swift */,
 				3D38F0652136499E007C0624 /* ListMoviesRouter.swift */,
 				3D38F0662136499E007C0624 /* ListMoviesPresenter.swift */,
@@ -184,6 +188,16 @@
 				3D38F0692136499E007C0624 /* ListMoviesInteractor.swift */,
 			);
 			path = ListMovies;
+			sourceTree = "<group>";
+		};
+		3D38F0722136D44E007C0624 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3D38F070213649CA007C0624 /* ListMovies.storyboard */,
+				3D38F0732136D480007C0624 /* MovieCollectionViewCell.swift */,
+				3D38F0742136D480007C0624 /* MovieCollectionViewCell.xib */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		3D84718F2134E4380006A8FF /* Services */ = {
@@ -298,6 +312,7 @@
 				3D38F071213649CA007C0624 /* ListMovies.storyboard in Resources */,
 				3D3268D2213320F70012DEB0 /* LaunchScreen.storyboard in Resources */,
 				3D3268CF213320F70012DEB0 /* Assets.xcassets in Resources */,
+				3D38F0762136D480007C0624 /* MovieCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +395,7 @@
 				3D38F04D213504AA007C0624 /* TMDbClient.swift in Sources */,
 				3D3268C8213320F50012DEB0 /* AppDelegate.swift in Sources */,
 				3D38F06D2136499E007C0624 /* ListMoviesWorker.swift in Sources */,
+				3D38F0752136D480007C0624 /* MovieCollectionViewCell.swift in Sources */,
 				2D9A126421356F4A0022D362 /* MoviesAPIWorker.swift in Sources */,
 				3D38F06F2136499E007C0624 /* ListMoviesInteractor.swift in Sources */,
 			);
