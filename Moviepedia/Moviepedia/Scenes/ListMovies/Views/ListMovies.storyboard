@@ -53,11 +53,11 @@
                                 <cells/>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.074509803921568626" green="0.074509803921568626" blue="0.090196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="oeZ-x4-eZF" firstAttribute="top" secondItem="Li9-QM-yfK" secondAttribute="top" id="0mU-L2-oPq"/>
                             <constraint firstItem="oeZ-x4-eZF" firstAttribute="leading" secondItem="Li9-QM-yfK" secondAttribute="leading" id="CvD-Ka-uP7"/>
-                            <constraint firstAttribute="bottom" secondItem="oeZ-x4-eZF" secondAttribute="bottom" id="E2Q-YM-C5e"/>
+                            <constraint firstItem="Li9-QM-yfK" firstAttribute="bottom" secondItem="oeZ-x4-eZF" secondAttribute="bottom" id="E2Q-YM-C5e"/>
                             <constraint firstItem="Li9-QM-yfK" firstAttribute="trailing" secondItem="oeZ-x4-eZF" secondAttribute="trailing" id="H9I-FP-4UO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Li9-QM-yfK"/>

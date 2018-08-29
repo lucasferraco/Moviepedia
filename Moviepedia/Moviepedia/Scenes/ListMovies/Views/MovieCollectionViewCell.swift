@@ -12,6 +12,8 @@ class MovieCollectionViewCell: UICollectionViewCell {
 	
 	static let identifier = "MovieCollectionViewCell"
 	static let nib = UINib(nibName: MovieCollectionViewCell.identifier, bundle: Bundle.main)
+	
+	static let preferredSize = CGSize(width: 300, height: 407)
 
 	@IBOutlet weak fileprivate var backgroundImageView: UIImageView!
 	@IBOutlet weak fileprivate var titleLabel: UILabel!

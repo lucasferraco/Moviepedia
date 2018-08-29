@@ -8,12 +8,19 @@
 
 import UIKit
 
-class MovieCollectionViewManager: NSObject, UICollectionViewDataSource {
+class MovieCollectionViewManager: UICollectionViewFlowLayout, UICollectionViewDataSource {
+	
+	fileprivate let defaultPadding: CGFloat = 20.0
 	
 	var data: [ListMovies.DisplayableMovieInfo]! = []
 	
 	init(of collection: UICollectionView) {
+		super.init()
 		collection.register(MovieCollectionViewCell.nib, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 	
 	//MARK:- UICollectionViewDataSource
@@ -31,12 +38,40 @@ class MovieCollectionViewManager: NSObject, UICollectionViewDataSource {
 		
 		return movieCell
 	}
-	
-	
 }
 
 //MARK:- UICollectionViewDelegate
 
 extension MovieCollectionViewManager: UICollectionViewDelegate {
 	
+}
+
+//MARK:- UICollectionViewDelegateFlowLayout
+
+extension MovieCollectionViewManager: UICollectionViewDelegateFlowLayout {
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		if UIDevice.current.userInterfaceIdiom == .phone, let layoutBounds = collectionViewLayout.collectionView?.bounds {
+			if UIDevice.current.orientation == .portrait {
+				return getProportionalSize(forWidth: layoutBounds.width - 2*defaultPadding)
+			} else { // landscape
+				return getProportionalSize(forHeight: layoutBounds.height - 2*defaultPadding)
+			}
+		}
+		
+		return MovieCollectionViewCell.preferredSize
+	}
+}
+
+//MARK:- Auxiliary Methods
+
+extension MovieCollectionViewManager {
+	fileprivate func getProportionalSize(forWidth width: CGFloat) -> CGSize {
+		let multiplier = width / MovieCollectionViewCell.preferredSize.width
+		return CGSize(width: width, height: MovieCollectionViewCell.preferredSize.height * multiplier)
+	}
+	
+	fileprivate func getProportionalSize(forHeight height: CGFloat) -> CGSize {
+		let multiplier = height / MovieCollectionViewCell.preferredSize.height
+		return CGSize(width: MovieCollectionViewCell.preferredSize.width * multiplier, height: height)
+	}
 }
