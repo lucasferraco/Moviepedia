@@ -33,18 +33,26 @@ class NetworkWorker {
 		if let url = URL(string: urlString) {
 			Alamofire.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers)
 				.validate()
-				.responseJSON { (response) in
+				.responseData { (response) in
 					guard response.result.isSuccess else {
 						completion(nil, .Failure)
 						return
 					}
 					
-					guard let decodableData = response.result.value as? T else {
+					guard let decodableData = response.result.value else {
 						completion(nil, .MalformedData)
 						return
 					}
 					
-					completion(decodableData, nil)
+					do {
+						let jsonDecoder = JSONDecoder()
+						let obj = try jsonDecoder.decode(T.self, from: decodableData)
+						
+						completion(obj, nil)
+					}
+					catch _ {
+						completion(nil, .MalformedData)
+					}
 			}
 		} else {
 			completion(nil, .MalformedURL)
