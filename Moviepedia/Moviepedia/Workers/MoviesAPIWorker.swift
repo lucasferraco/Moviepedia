@@ -74,7 +74,7 @@ class MoviesAPIWorker: TMDbClient {
 		switch networkError {
 		case .NoConnection:
 			return .NoConnection
-		case .MalformedData, .Failure:
+		case .MalformedData, .MalformedURL, .Failure:
 			return .Failure
 		}
 	}
