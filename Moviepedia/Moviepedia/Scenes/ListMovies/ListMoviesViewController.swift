@@ -20,7 +20,7 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 	var interactor: ListMoviesBusinessLogic?
 	var router: (NSObjectProtocol & ListMoviesRoutingLogic & ListMoviesDataPassing)?
 	
-	var moviesDatasource: [ListMovies.DisplayableMovieInfo] = []
+	fileprivate var collectionManager: MovieCollectionViewManager!
 	@IBOutlet weak var moviesCollectionView: UICollectionView!
 	
 	//MARK:- Object lifecycle
@@ -65,7 +65,7 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+		navigationController?.title = "Upcoming Movies"
 		setupMoviesCollection()
 		
 		interactor?.getUpcomingMovies()
@@ -75,7 +75,7 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 	
 	func displayMoviesList(with viewModel: ListMovies.ListMovies.ViewModel) {
 		if let moviesInfo = viewModel.moviesInfo {
-			moviesDatasource = moviesInfo
+			collectionManager.data = moviesInfo
 			moviesCollectionView.reloadData()
 		}
 	}
@@ -83,27 +83,8 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 	//MARK:- Auxiliary Methods
 	
 	fileprivate func setupMoviesCollection() {
-		moviesCollectionView.register(MovieCollectionViewCell.nib, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
-		moviesCollectionView.dataSource = self
+		collectionManager = MovieCollectionViewManager(of: moviesCollectionView)
+		moviesCollectionView.dataSource = collectionManager
+		moviesCollectionView.delegate = collectionManager
 	}
-}
-
-//MARK:- UICollectionViewDataSource
-
-extension ListMoviesViewController: UICollectionViewDataSource {
-	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return moviesDatasource.count
-	}
-	
-	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		guard let movieCell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCollectionViewCell.identifier, for: indexPath) as? MovieCollectionViewCell else {
-			return UICollectionViewCell()
-		}
-		
-		movieCell.configure(with: moviesDatasource[indexPath.row])
-		
-		return movieCell
-	}
-	
-	
 }

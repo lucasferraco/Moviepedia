@@ -27,6 +27,7 @@
 		3D38F071213649CA007C0624 /* ListMovies.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D38F070213649CA007C0624 /* ListMovies.storyboard */; };
 		3D38F0752136D480007C0624 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D38F0732136D480007C0624 /* MovieCollectionViewCell.swift */; };
 		3D38F0762136D480007C0624 /* MovieCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D38F0742136D480007C0624 /* MovieCollectionViewCell.xib */; };
+		3D38F07D2136F294007C0624 /* MovieCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D38F07C2136F294007C0624 /* MovieCollectionViewManager.swift */; };
 		3D9C3FA22134CE3D005B9ECB /* NetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C3FA12134CE3D005B9ECB /* NetworkWorker.swift */; };
 		DE91A819A4C2DD1503C197FE /* Pods_Moviepedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD8A3920BC634675D3E5B13 /* Pods_Moviepedia.framework */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		3D38F070213649CA007C0624 /* ListMovies.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ListMovies.storyboard; sourceTree = "<group>"; };
 		3D38F0732136D480007C0624 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		3D38F0742136D480007C0624 /* MovieCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieCollectionViewCell.xib; sourceTree = "<group>"; };
+		3D38F07C2136F294007C0624 /* MovieCollectionViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewManager.swift; sourceTree = "<group>"; };
 		3D9C3FA12134CE3D005B9ECB /* NetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkWorker.swift; sourceTree = "<group>"; };
 		586923E4AC2E236A85AD6692 /* Pods-Moviepedia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moviepedia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Moviepedia/Pods-Moviepedia.release.xcconfig"; sourceTree = "<group>"; };
 		CFD8A3920BC634675D3E5B13 /* Pods_Moviepedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moviepedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -196,6 +198,7 @@
 				3D38F070213649CA007C0624 /* ListMovies.storyboard */,
 				3D38F0732136D480007C0624 /* MovieCollectionViewCell.swift */,
 				3D38F0742136D480007C0624 /* MovieCollectionViewCell.xib */,
+				3D38F07C2136F294007C0624 /* MovieCollectionViewManager.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 			files = (
 				3D38F06C2136499E007C0624 /* ListMoviesPresenter.swift in Sources */,
 				2D9A1266213585BC0022D362 /* DownloadImageAPIWorker.swift in Sources */,
+				3D38F07D2136F294007C0624 /* MovieCollectionViewManager.swift in Sources */,
 				3D3268DE21335AB60012DEB0 /* Movie.swift in Sources */,
 				3D38F06B2136499E007C0624 /* ListMoviesRouter.swift in Sources */,
 				3D38F06E2136499E007C0624 /* ListMoviesViewController.swift in Sources */,
