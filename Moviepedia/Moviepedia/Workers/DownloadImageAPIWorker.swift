@@ -23,9 +23,9 @@ class DownloadImageAPIWorker: TMDbClient {
 		func getDefaultSizeString() -> String {
 			switch self {
 			case .poster:
-				return "/w500"
+				return "w500"
 			case .backdrop:
-				return "/w300"
+				return "w300"
 			}
 		}
 	}

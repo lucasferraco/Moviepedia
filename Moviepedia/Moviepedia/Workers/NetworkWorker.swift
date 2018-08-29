@@ -70,7 +70,7 @@ class NetworkWorker {
 		}
 		
 		if let url = URL(string: urlString) {
-			Alamofire.download(url)
+			Alamofire.request(url, method: .get)
 				.validate()
 				.responseData { (response) in
 					guard response.result.isSuccess else {
