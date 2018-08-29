@@ -27,6 +27,7 @@ enum ListMovies {
 	enum ListMovies {
 		struct Response {
 			let movies: [Movie]?
+			let genres: [Int : String]?
 			let error: MoviesAPIWorkerError?
 		}
 		

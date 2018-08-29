@@ -26,7 +26,7 @@ class ListMoviesPresenter: ListMoviesPresentationLogic {
 	
 	func presentMoviesList(with response: ListMovies.ListMovies.Response) {
 		let moviesInfo = response.movies?.map { (movie) -> ListMovies.DisplayableMovieInfo in
-			return displayableInfo(from: movie)
+			return displayableInfo(from: movie, genreDictionary: response.genres)
 		}
 		
 		if let moviesInfo = moviesInfo {
@@ -66,7 +66,7 @@ class ListMoviesPresenter: ListMoviesPresentationLogic {
 	
 	//MARK:- Auxiliary methods
 	
-	private func displayableInfo(from movie: Movie) -> ListMovies.DisplayableMovieInfo {
+	private func displayableInfo(from movie: Movie, genreDictionary: [Int : String]?) -> ListMovies.DisplayableMovieInfo {
 		let id = movie.id ?? -1
 		
 		var movieTitle = ""
@@ -79,7 +79,9 @@ class ListMoviesPresenter: ListMoviesPresentationLogic {
 		var genresString = ""
 		if let genreIds = movie.genreIds {
 			let genreIdsReduced = genreIds.reduce(into: "", { (genresString, id) in
-				genresString += String(id) + ", "
+				if let genreName = genreDictionary?[id] {
+					genresString += genreName + ", "
+				}
 			}).dropLast(2)
 			
 			genresString = String(genreIdsReduced)

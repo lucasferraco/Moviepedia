@@ -20,6 +20,7 @@ enum MoviesAPIWorkerError: Error {
 class MoviesAPIWorker: TMDbClient {
 	
 	private let networkDecodableWorker = NetworkWorker()
+	private let genreWorker = GenreAPIWorker.shared
 	
 	private struct MoviesListResponse: Decodable {
 		let movies: [Movie]
@@ -52,7 +53,10 @@ class MoviesAPIWorker: TMDbClient {
 			return theOnlyInstance!
 		}
 	}
-	private override init() {}
+	private override init() {
+		super.init()
+		genreWorker.fetchGenres(of: .movie)
+	}
 	
 	//MARK:- Public Methods
 	

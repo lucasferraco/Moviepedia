@@ -28,6 +28,7 @@ class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
 	var moviesWorker = MoviesAPIWorker.shared
 	private var currentPage = 1
 	
+	var genreWorker = GenreAPIWorker.shared
 	var downloadImageWorker = DownloadImageAPIWorker.shared
 	
 	// MARK:- ListMoviesDataStore protocol
@@ -42,8 +43,20 @@ class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
 				self.store(movies: movies)
 			}
 			
-			let response = ListMovies.ListMovies.Response(movies: movies, error: error)
-			self.presenter?.presentMoviesList(with: response)
+			self.genreWorker.fetchGenres(of: .movie) { (genreList) in
+				var genreDict: [Int : String]? = [:]
+				
+				if let genreList = genreList {
+					for genre in genreList {
+						genreDict?.updateValue(genre.name, forKey: genre.id)
+					}
+				} else {
+					genreDict = nil
+				}
+			
+				let response = ListMovies.ListMovies.Response(movies: movies, genres: genreDict, error: error)
+				self.presenter?.presentMoviesList(with: response)
+			}
 		}
 	}
 	
