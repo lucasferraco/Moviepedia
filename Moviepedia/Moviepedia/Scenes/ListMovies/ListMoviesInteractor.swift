@@ -24,7 +24,7 @@ protocol ListMoviesDataStore {
 class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
 	var presenter: ListMoviesPresentationLogic?
 	
-	var movies: [Movie] = []
+	var moviesDictionary: [Int : Movie] = [:]
 	var moviesWorker = MoviesAPIWorker.shared
 	private var currentPage = 1
 	
@@ -39,7 +39,7 @@ class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
 	func getUpcomingMovies() {
 		moviesWorker.fetchMoviesList(of: .upcoming, on: currentPage) { (movies, error) in
 			if let movies = movies {
-				self.movies = movies
+				self.store(movies: movies)
 			}
 			
 			let response = ListMovies.ListMovies.Response(movies: movies, error: error)
@@ -48,9 +48,7 @@ class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
 	}
 	
 	func getMovieImage(with request: ListMovies.GetMovieImage.Request, _ completion: @escaping (UIImage) -> Void) {
-		let chosenMovie = movies.first { (movie) -> Bool in
-			return request.movieId == movie.id
-		}
+		let chosenMovie = moviesDictionary[request.movieId]
 		
 		if let posterImage = chosenMovie?.posterImage {
 			present(image: posterImage, id: request.movieId, completion)
@@ -82,6 +80,18 @@ class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
 	}
 	
 	//MARK:- Auxiliary Methods
+	
+	private func store(movies: [Movie]) {
+		for i in 0..<movies.count {
+			let currentMovie = movies[i]
+			
+			if let id = currentMovie.id {
+				self.moviesDictionary.updateValue(currentMovie, forKey: id)
+			} else {
+				self.moviesDictionary.updateValue(currentMovie, forKey: i)
+			}
+		}
+	}
 	
 	private func present(image: UIImage?, id: Int, _ completion: @escaping (UIImage) -> Void) {
 		let response = ListMovies.GetMovieImage.Response(movieId: id, movieImage: image)
