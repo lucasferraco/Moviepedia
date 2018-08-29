@@ -53,11 +53,11 @@ class DownloadImageAPIWorker: TMDbClient {
 	///   - path: The file path to be downloaded.
 	///   - type: Whether poster or backdrop image.
 	///   - completion: The handler to be called once the download has finished.
-	public func downloadImage(from path: String, type: ImageType, _ completion: @escaping (UIImage?) -> Void) {
+	public func downloadImage(from path: String, type: ImageType, _ completion: @escaping (_ path: String, _ image: UIImage?) -> Void) {
 		guard let properties = properties else {
 			updateProperties() { (error) in
 				guard error == nil else {
-					completion(nil)
+					completion(path, nil)
 					return
 				}
 				
@@ -68,18 +68,18 @@ class DownloadImageAPIWorker: TMDbClient {
 		}
 		
 		guard let preferredImageURL = properties.images?.safeBaseURL else {
-			completion(nil)
+			completion(path, nil)
 			return
 		}
 		
 		let completeURL = preferredImageURL + type.getDefaultSizeString() + path
 		networkDecodableWorker.download(from: completeURL) { (data, error) in
 			guard let unwrappedData = data, let image = UIImage(data: unwrappedData) else {
-				completion(nil)
+				completion(path, nil)
 				return
 			}
 			
-			completion(image)
+			completion(path, image)
 		}
 	}
     

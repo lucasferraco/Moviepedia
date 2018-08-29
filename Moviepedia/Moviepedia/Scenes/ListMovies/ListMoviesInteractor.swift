@@ -75,7 +75,9 @@ class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
 				chosenMovie?.backdropImage = image
 			}
 			
+			if callbackPath == path { // Avoid the image to load on the wrong spot
 				self.present(image: image, id: request.movieId, completion)
+			}
 		}
 	}
 	
