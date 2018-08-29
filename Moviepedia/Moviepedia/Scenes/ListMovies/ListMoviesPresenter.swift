@@ -60,10 +60,9 @@ class ListMoviesPresenter: ListMoviesPresentationLogic {
 			genresString = String(genreIdsReduced)
 		}
 		
-		let dateFormatter = DateFormatter.yyyyMMddFormat
 		var releaseDate = ""
 		if let dateObj = movie.releaseDate {
-			releaseDate = dateFormatter.string(from: dateObj)
+			releaseDate = DateFormatter.localizedString(from: dateObj, dateStyle: .short, timeStyle: .none)
 		}
 		
 		return ListMovies.DisplayableMovieInfo(id: id, title: movieTitle, image: nil, genre: genresString, releaseDate: releaseDate)
