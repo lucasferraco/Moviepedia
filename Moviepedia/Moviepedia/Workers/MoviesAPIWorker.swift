@@ -20,6 +20,21 @@ enum MoviesAPIWorkerError: Error {
 class MoviesAPIWorker: TMDbClient {
 	
 	private let networkDecodableWorker = NetworkWorker()
+	private let genreWorker = GenreAPIWorker.shared
+	
+	private struct MoviesListResponse: Decodable {
+		let movies: [Movie]
+		let page: Int
+		let totalResults: Int
+		let totalPages: Int
+		
+		private enum CodingKeys: String, CodingKey {
+			case movies = "results"
+			case page
+			case totalResults = "total_results"
+			case totalPages = "total_pages"
+		}
+	}
 	
 	public enum ListType: String {
 		case upcoming 		= "/upcoming"
@@ -38,7 +53,10 @@ class MoviesAPIWorker: TMDbClient {
 			return theOnlyInstance!
 		}
 	}
-	private override init() {}
+	private override init() {
+		super.init()
+		genreWorker.fetchGenres(of: .movie)
+	}
 	
 	//MARK:- Public Methods
 	
@@ -52,14 +70,14 @@ class MoviesAPIWorker: TMDbClient {
 		let fullURLString = url(for: .movie) + type.rawValue
 		let params = parameters([.page, .languageCode, .regionCode], forPage: page)
 		
-		networkDecodableWorker.get(from: fullURLString, with: params) { (movies: [Movie]?, networkError) in
+		networkDecodableWorker.get(from: fullURLString, with: params) { (response: MoviesListResponse?, networkError) in
 			if let error = networkError {
 				let internalError = self.getMoviesAPIError(from: error)
 				completion(nil, internalError)
 				return
 			}
 			
-			guard let movies = movies else {
+			guard let movies = response?.movies else {
 				completion(nil, .Failure)
 				return
 			}
