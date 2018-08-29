@@ -14,7 +14,7 @@ import UIKit
 
 class ImageDownloadWorker: TMDbClient {
     
-    private let networkDecodableWorker = NetworkDecodableWorker()
+    private let networkDecodableWorker = NetworkWorker()
     
     //MARK: Singleton Definition
     private static var theOnlyInstance: ImageDownloadWorker?
@@ -35,7 +35,7 @@ class ImageDownloadWorker: TMDbClient {
     
     //MARK:- Auxiliary Methods
     
-    private func updateProperties(_ completion: ((NetworkDecodableWorkerError?) -> Void)? = nil) {
+    private func updateProperties(_ completion: ((NetworkWorkerError?) -> Void)? = nil) {
         let propsURL = url(for: .configuration)
         let params = parameters()
         

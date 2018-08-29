@@ -19,7 +19,7 @@ enum MoviesAPIWorkerError: Error {
 
 class MoviesAPIWorker: TMDbClient {
 	
-	private let networkDecodableWorker = NetworkDecodableWorker()
+	private let networkDecodableWorker = NetworkWorker()
 	
 	public enum ListType: String {
 		case upcoming 		= "/upcoming"
@@ -70,7 +70,7 @@ class MoviesAPIWorker: TMDbClient {
 	
 	//MARK:- Auxiliary Methods
 	
-	private func getMoviesAPIError(from networkError: NetworkDecodableWorkerError) -> MoviesAPIWorkerError {
+	private func getMoviesAPIError(from networkError: NetworkWorkerError) -> MoviesAPIWorkerError {
 		switch networkError {
 		case .NoConnection:
 			return .NoConnection
