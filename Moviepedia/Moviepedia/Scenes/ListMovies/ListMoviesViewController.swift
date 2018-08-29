@@ -71,6 +71,10 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 		interactor?.getUpcomingMovies()
 	}
 	
+	override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
+		changeScrollOrientation(to: toInterfaceOrientation)
+	}
+	
 	//MARK:- ListMoviesDisplayLogic
 	
 	func displayMoviesList(with viewModel: ListMovies.ListMovies.ViewModel) {
@@ -86,5 +90,17 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 		collectionManager = MovieCollectionViewManager(of: moviesCollectionView)
 		moviesCollectionView.dataSource = collectionManager
 		moviesCollectionView.delegate = collectionManager
+		
+		changeScrollOrientation(to: UIApplication.shared.statusBarOrientation)
+	}
+	
+	fileprivate func changeScrollOrientation(to interfaceOrientation: UIInterfaceOrientation) {
+		guard let layout = moviesCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+		
+		if interfaceOrientation == .landscapeLeft || interfaceOrientation == .landscapeRight {
+			layout.scrollDirection = .horizontal
+		} else {
+			layout.scrollDirection = .vertical
+		}
 	}
 }
