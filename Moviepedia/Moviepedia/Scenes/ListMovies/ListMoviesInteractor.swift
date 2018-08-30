@@ -16,10 +16,11 @@ protocol ListMoviesBusinessLogic {
 	func getUpcomingMovies()
 	func getMovieImage(with request: ListMovies.GetMovieImage.Request, _ completion: @escaping (UIImage) -> Void)
 	func getMoreMovies(_ completion: @escaping ([ListMovies.DisplayableMovieInfo]) -> Void)
+	func storeSelectedMovie(with id: Int)
 }
 
 protocol ListMoviesDataStore {
-	var movie: Movie? { get set }
+	var movie: Movie! { get set }
 }
 
 class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
@@ -35,7 +36,7 @@ class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
 	
 	// MARK:- ListMoviesDataStore protocol
 	
-	var movie: Movie? = nil
+	var movie: Movie!
 	
 	// MARK:- ListMoviesBusinessLogic protocol
 	
@@ -126,6 +127,10 @@ class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
 				self.presenter?.presentNewMovies(with: response, completion)
 			}
 		}
+	}
+	
+	func storeSelectedMovie(with id: Int) {
+		movie = moviesDictionary[id]
 	}
 	
 	//MARK:- Auxiliary Methods

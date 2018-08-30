@@ -11,6 +11,7 @@ import UIKit
 protocol MovieCollectionViewManagerProtocol {
 	func getImageForMovie(with movieInfo: ListMovies.DisplayableMovieInfo, _ completion: @escaping (UIImage) -> Void)
 	func getMoreMovies(_ completion: @escaping ([ListMovies.DisplayableMovieInfo]) -> Void)
+	func didSelectMovie(with id: Int)
 }
 
 class MovieCollectionViewManager: NSObject {
@@ -73,6 +74,10 @@ extension MovieCollectionViewManager: UICollectionViewDataSource {
 				self.collectionView.insertSections([self.currentSection])
 			}
 		}
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		delegate?.didSelectMovie(with: data[indexPath.section][indexPath.row].id)
 	}
 }
 
