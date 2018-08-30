@@ -13,16 +13,42 @@
 import UIKit
 
 protocol MovieDetailsPresentationLogic {
-	func presentSomething(response: MovieDetails.Something.Response)
+	func presentMovieDetails(with response: MovieDetails.ShowMovieDetails.Response)
 }
 
 class MovieDetailsPresenter: MovieDetailsPresentationLogic {
 	weak var viewController: MovieDetailsDisplayLogic?
 	
-	// MARK: Do something
+	//MARK:- MovieDetailsPresentationLogic
 	
-	func presentSomething(response: MovieDetails.Something.Response) {
-		let viewModel = MovieDetails.Something.ViewModel()
-		viewController?.displaySomething(viewModel: viewModel)
+	func presentMovieDetails(with response: MovieDetails.ShowMovieDetails.Response) {
+		let movie = response.movie
+		
+		var movieTitle = ""
+		if let title = movie.title {
+			movieTitle = title
+		} else if let originalTitle = movie.originalTitle {
+			movieTitle = originalTitle
+		}
+		
+		var genresString = ""
+		if let genreIds = movie.genreIds {
+			let genreIdsReduced = genreIds.reduce(into: "", { (genresString, id) in
+				if let genreName = response.genres?[id] {
+					genresString += genreName + ", "
+				}
+			}).dropLast(2)
+			
+			genresString = String(genreIdsReduced)
+		}
+		
+		var releaseDate = ""
+		if let dateObj = movie.releaseDate {
+			releaseDate = DateFormatter.localizedString(from: dateObj, dateStyle: .short, timeStyle: .none)
+		}
+		
+		let movieInfo = MovieDetails.MovieInfo(title: movieTitle, releaseDate: releaseDate, genres: genresString, overview: movie.overview)
+		let viewModel = MovieDetails.ShowMovieDetails.ViewModel(movieInfo: movieInfo, backgroundImage: response.backgroundImage)
+		viewController?.displayMovieInfo(with: viewModel)
 	}
 }

@@ -13,12 +13,11 @@
 import UIKit
 
 protocol MovieDetailsDisplayLogic: class {
-	func displaySomething(viewModel: MovieDetails.Something.ViewModel)
+	func displayMovieInfo(with viewModel: MovieDetails.ShowMovieDetails.ViewModel)
 }
 
 class MovieDetailsViewController: UIViewController, MovieDetailsDisplayLogic {
 	var interactor: MovieDetailsBusinessLogic?
-	var router: (NSObjectProtocol & MovieDetailsRoutingLogic & MovieDetailsDataPassing)?
 	
 	@IBOutlet weak var backgroundImageView: UIImageView!
 	@IBOutlet weak var titleLabel: UILabel!
@@ -27,7 +26,7 @@ class MovieDetailsViewController: UIViewController, MovieDetailsDisplayLogic {
 	@IBOutlet weak var overviewLabel: UILabel!
 	
 	
-	// MARK: Object lifecycle
+	//MARK:- Object lifecycle
 	
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -39,49 +38,35 @@ class MovieDetailsViewController: UIViewController, MovieDetailsDisplayLogic {
 		setup()
 	}
 	
-	// MARK: Setup
+	//MARK:- Setup
 	
 	private func setup() {
 		let viewController = self
 		let interactor = MovieDetailsInteractor()
 		let presenter = MovieDetailsPresenter()
-		let router = MovieDetailsRouter()
 		viewController.interactor = interactor
-		viewController.router = router
 		interactor.presenter = presenter
 		presenter.viewController = viewController
-		router.viewController = viewController
-		router.dataStore = interactor
 	}
 	
-	// MARK: Routing
-	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if let scene = segue.identifier {
-			let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-			if let router = router, router.responds(to: selector) {
-				router.perform(selector, with: segue)
-			}
-		}
-	}
-	
-	// MARK: View lifecycle
+	//MARK:- View lifecycle
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		doSomething()
+		interactor?.getMovieDetails()
 	}
 	
-	// MARK: Do something
+	//MARK:- MovieDetailsDisplayLogic
 	
-	//@IBOutlet weak var nameTextField: UITextField!
-	
-	func doSomething() {
-		let request = MovieDetails.Something.Request()
-		interactor?.doSomething(request: request)
-	}
-	
-	func displaySomething(viewModel: MovieDetails.Something.ViewModel) {
-		//nameTextField.text = viewModel.name
+	func displayMovieInfo(with viewModel: MovieDetails.ShowMovieDetails.ViewModel) {
+		
+		navigationController?.title = viewModel.movieInfo.title
+		
+		titleLabel.text = viewModel.movieInfo.title
+		releaseDateLabel.text = viewModel.movieInfo.releaseDate
+		genresLabel.text = viewModel.movieInfo.genres
+		overviewLabel.text = viewModel.movieInfo.overview
+		
+		backgroundImageView.image = viewModel.backgroundImage
 	}
 }

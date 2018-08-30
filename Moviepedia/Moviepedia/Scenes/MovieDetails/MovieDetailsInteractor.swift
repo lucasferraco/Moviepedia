@@ -13,25 +13,45 @@
 import UIKit
 
 protocol MovieDetailsBusinessLogic {
-	func doSomething(request: MovieDetails.Something.Request)
+	func getMovieDetails()
 }
 
 protocol MovieDetailsDataStore {
-	//var name: String { get set }
+	var movie: Movie! { get set }
 }
 
 class MovieDetailsInteractor: MovieDetailsBusinessLogic, MovieDetailsDataStore {
 	var presenter: MovieDetailsPresentationLogic?
-	var worker: MovieDetailsWorker?
-	//var name: String = ""
 	
-	// MARK: Do something
+	var genreWorker = GenreAPIWorker.shared
 	
-	func doSomething(request: MovieDetails.Something.Request) {
-		worker = MovieDetailsWorker()
-		worker?.doSomeWork()
-		
-		let response = MovieDetails.Something.Response()
-		presenter?.presentSomething(response: response)
+	//MARK- MovieDetailsDataStore
+	
+	var movie: Movie!
+	
+	// MARK:- MovieDetailsBusinessLogic
+	
+	func getMovieDetails() {
+		self.genreWorker.fetchGenres(of: .movie) { (genreList) in
+			var genreDict: [Int : String]? = [:]
+			
+			if let genreList = genreList {
+				for genre in genreList {
+					genreDict?.updateValue(genre.name, forKey: genre.id)
+				}
+			} else {
+				genreDict = nil
+			}
+			
+			var background: UIImage?
+			if let posterImage = self.movie.posterImage {
+				background = posterImage
+			} else if let backdropImage = self.movie.backdropImage {
+				background = backdropImage
+			}
+			
+			let response = MovieDetails.ShowMovieDetails.Response(movie: self.movie, genres: genreDict, backgroundImage: background)
+			self.presenter?.presentMovieDetails(with: response)
+		}
 	}
 }

@@ -13,17 +13,26 @@
 import UIKit
 
 enum MovieDetails {
-	// MARK: Use cases
 	
-	enum Something {
-		struct Request {
-			
-		}
+	struct MovieInfo {
+		let title: String?
+		let releaseDate: String?
+		let genres: String?
+		let overview: String?
+	}
+	
+	// MARK: Show Movie Details
+	
+	enum ShowMovieDetails {
 		struct Response {
-			
+			let movie: Movie
+			let genres: [Int : String]?
+			let backgroundImage: UIImage?
 		}
+		
 		struct ViewModel {
-			
+			let movieInfo: MovieInfo
+			let backgroundImage: UIImage?
 		}
 	}
 }
