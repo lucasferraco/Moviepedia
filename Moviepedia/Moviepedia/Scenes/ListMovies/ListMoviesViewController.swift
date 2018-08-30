@@ -22,6 +22,7 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 	
 	fileprivate var collectionManager: MovieCollectionViewManager!
 	@IBOutlet weak var moviesCollectionView: UICollectionView!
+	fileprivate var refreshControl: UIRefreshControl!
 	
 	//MARK:- Object lifecycle
 	
@@ -68,7 +69,7 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 		navigationController?.title = "Upcoming Movies"
 		setupMoviesCollection()
 		
-		interactor?.getUpcomingMovies()
+		getUpcomingMovies()
 	}
 	
 	override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
@@ -78,22 +79,46 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 	//MARK:- ListMoviesDisplayLogic
 	
 	func displayMoviesList(with viewModel: ListMovies.ListMovies.ViewModel) {
+		if refreshControl.isRefreshing {
+			refreshControl.endRefreshing()
+		}
+		
 		if let moviesInfo = viewModel.moviesInfo {
-			collectionManager.data = moviesInfo
-			moviesCollectionView.reloadData()
+			collectionManager.display(movies: moviesInfo)
+		} else if let message = viewModel.errorMessage {
+			presentAlert(with: message)
 		}
 	}
 	
 	//MARK:- Auxiliary Methods
 	
+	@objc fileprivate func getUpcomingMovies() {
+		if !refreshControl.isRefreshing {
+			refreshControl.beginRefreshing()
+		}
+		
+		interactor?.getUpcomingMovies()
+	}
+	
 	fileprivate func setupMoviesCollection() {
+		moviesCollectionView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+		moviesCollectionView.alwaysBounceVertical = true
+		
+		refreshControl = UIRefreshControl()
+		refreshControl.addTarget(self, action: #selector(getUpcomingMovies), for: .valueChanged)
+		moviesCollectionView.refreshControl = refreshControl
+		
+		setupMoviewCollectionManager()
+		
+		changeScrollOrientation(to: UIApplication.shared.statusBarOrientation)
+	}
+	
+	fileprivate func setupMoviewCollectionManager() {
 		collectionManager = MovieCollectionViewManager(of: moviesCollectionView)
 		collectionManager.delegate = self
 		
 		moviesCollectionView.dataSource = collectionManager
 		moviesCollectionView.delegate = collectionManager
-		
-		changeScrollOrientation(to: UIApplication.shared.statusBarOrientation)
 	}
 	
 	fileprivate func changeScrollOrientation(to interfaceOrientation: UIInterfaceOrientation) {
@@ -105,11 +130,23 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 			layout.scrollDirection = .vertical
 		}
 	}
+	
+	private func presentAlert(with message: String) {
+		let alert = UIAlertController(title: "Ops", message: message, preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+		present(alert, animated: true, completion: nil)
+	}
 }
 
 extension ListMoviesViewController: MovieCollectionViewManagerProtocol {
+	
 	func getImageForMovie(with movieInfo: ListMovies.DisplayableMovieInfo, _ completion: @escaping (UIImage) -> Void) {
 		let request = ListMovies.GetMovieImage.Request(movieId: movieInfo.id)
 		interactor?.getMovieImage(with: request, completion)
+	}
+	
+	
+	func getMoreMovies(_ completion: @escaping ([ListMovies.DisplayableMovieInfo]) -> Void) {
+		interactor?.getMoreMovies(completion)
 	}
 }

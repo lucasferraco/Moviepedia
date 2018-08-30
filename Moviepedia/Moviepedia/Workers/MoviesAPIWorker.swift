@@ -13,6 +13,7 @@
 import Foundation
 
 enum MoviesAPIWorkerError: Error {
+	case AllMoviesDownloaded
 	case NoConnection
 	case Failure
 }
@@ -22,16 +23,14 @@ class MoviesAPIWorker: TMDbClient {
 	private let networkDecodableWorker = NetworkWorker()
 	private let genreWorker = GenreAPIWorker.shared
 	
-	private struct MoviesListResponse: Decodable {
+	public struct MoviesListResponse: Decodable {
 		let movies: [Movie]
 		let page: Int
-		let totalResults: Int
 		let totalPages: Int
 		
 		private enum CodingKeys: String, CodingKey {
 			case movies = "results"
 			case page
-			case totalResults = "total_results"
 			case totalPages = "total_pages"
 		}
 	}
@@ -66,7 +65,7 @@ class MoviesAPIWorker: TMDbClient {
 	///   - type: The type of list wanted.
 	///   - page: The number of the page to be downloaded.
 	///   - completion: The handler to be called once the request has finished.
-	public func fetchMoviesList(of type: ListType, on page: Int? = nil, _ completion: @escaping ([Movie]?, MoviesAPIWorkerError?) -> Void) {
+	public func fetchMoviesList(of type: ListType, on page: Int? = nil, _ completion: @escaping (MoviesListResponse?, MoviesAPIWorkerError?) -> Void) {
 		let fullURLString = url(for: .movie) + type.rawValue
 		let params = parameters([.page, .languageCode, .regionCode], forPage: page)
 		
@@ -77,12 +76,12 @@ class MoviesAPIWorker: TMDbClient {
 				return
 			}
 			
-			guard let movies = response?.movies else {
+			guard let response = response else {
 				completion(nil, .Failure)
 				return
 			}
 			
-			completion(movies, nil)
+			completion(response, nil)
 		}
 	}
 	

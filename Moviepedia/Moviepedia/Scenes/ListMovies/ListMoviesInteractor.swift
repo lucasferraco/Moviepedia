@@ -15,6 +15,7 @@ import UIKit
 protocol ListMoviesBusinessLogic {
 	func getUpcomingMovies()
 	func getMovieImage(with request: ListMovies.GetMovieImage.Request, _ completion: @escaping (UIImage) -> Void)
+	func getMoreMovies(_ completion: @escaping ([ListMovies.DisplayableMovieInfo]) -> Void)
 }
 
 protocol ListMoviesDataStore {
@@ -26,7 +27,8 @@ class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
 	
 	var moviesDictionary: [Int : Movie] = [:]
 	var moviesWorker = MoviesAPIWorker.shared
-	private var currentPage = 1
+	private var nextPage = 1
+	private var lastPage = 1
 	
 	var genreWorker = GenreAPIWorker.shared
 	var downloadImageWorker = DownloadImageAPIWorker.shared
@@ -38,9 +40,11 @@ class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
 	// MARK:- ListMoviesBusinessLogic protocol
 	
 	func getUpcomingMovies() {
-		moviesWorker.fetchMoviesList(of: .upcoming, on: currentPage) { (movies, error) in
-			if let movies = movies {
-				self.store(movies: movies)
+		moviesWorker.fetchMoviesList(of: .upcoming) { (response, error) in
+			let movies = response?.movies
+			if let response = response {
+				self.moviesDictionary.removeAll()
+				self.store(requestInfo: response)
 			}
 			
 			self.genreWorker.fetchGenres(of: .movie) { (genreList) in
@@ -92,11 +96,48 @@ class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesDataStore {
 		}
 	}
 	
+	func getMoreMovies(_ completion: @escaping ([ListMovies.DisplayableMovieInfo]) -> Void) {
+		if nextPage > lastPage {
+			let response = ListMovies.GetMoreMovies.Response(newMovies: nil, genres: nil, error: .AllMoviesDownloaded)
+			self.presenter?.presentNewMovies(with: response, completion)
+			return
+		} else {
+			nextPage += 1 // Keeps the user from fetching the same page twice
+		}
+		
+		moviesWorker.fetchMoviesList(of: .upcoming, on: nextPage - 1) { (response, error) in
+			let movies = response?.movies
+			if let response = response {
+				self.store(requestInfo: response)
+			}
+			
+			self.genreWorker.fetchGenres(of: .movie) { (genreList) in
+				var genreDict: [Int : String]? = [:]
+				
+				if let genreList = genreList {
+					for genre in genreList {
+						genreDict?.updateValue(genre.name, forKey: genre.id)
+					}
+				} else {
+					genreDict = nil
+				}
+				
+				let response = ListMovies.GetMoreMovies.Response(newMovies: movies, genres: genreDict, error: error)
+				self.presenter?.presentNewMovies(with: response, completion)
+			}
+		}
+	}
+	
 	//MARK:- Auxiliary Methods
 	
-	private func store(movies: [Movie]) {
-		for i in 0..<movies.count {
-			let currentMovie = movies[i]
+	private func store(requestInfo response: MoviesAPIWorker.MoviesListResponse) {
+		if nextPage != response.page + 1 {
+			nextPage = response.page + 1
+		}
+		lastPage = response.totalPages
+		
+		for i in 0..<response.movies.count {
+			let currentMovie = response.movies[i]
 			
 			if let id = currentMovie.id {
 				self.moviesDictionary.updateValue(currentMovie, forKey: id)

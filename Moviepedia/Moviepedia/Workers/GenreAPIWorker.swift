@@ -54,6 +54,7 @@ class GenreAPIWorker: TMDbClient {
 	public func fetchGenres(of kind: Kind, _ completion: (([Genre]?) -> Void)? = nil) {
 		if let list = checkForDownloadedList(of: kind) {
 			completion?(list)
+			return
 		}
 		
 		let completeURL = url(for: .genre) + kind.rawValue + "/list"
