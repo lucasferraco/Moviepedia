@@ -72,6 +72,11 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 		getUpcomingMovies()
 	}
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		changeScrollOrientation(to: UIApplication.shared.statusBarOrientation)
+	}
+	
 	override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
 		changeScrollOrientation(to: toInterfaceOrientation)
 	}
@@ -109,8 +114,6 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 		moviesCollectionView.refreshControl = refreshControl
 		
 		setupMoviewCollectionManager()
-		
-		changeScrollOrientation(to: UIApplication.shared.statusBarOrientation)
 	}
 	
 	fileprivate func setupMoviewCollectionManager() {
