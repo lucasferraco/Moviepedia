@@ -20,6 +20,13 @@ class MovieDetailsViewController: UIViewController, MovieDetailsDisplayLogic {
 	var interactor: MovieDetailsBusinessLogic?
 	var router: (NSObjectProtocol & MovieDetailsRoutingLogic & MovieDetailsDataPassing)?
 	
+	@IBOutlet weak var backgroundImageView: UIImageView!
+	@IBOutlet weak var titleLabel: UILabel!
+	@IBOutlet weak var releaseDateLabel: UILabel!
+	@IBOutlet weak var genresLabel: UILabel!
+	@IBOutlet weak var overviewLabel: UILabel!
+	
+	
 	// MARK: Object lifecycle
 	
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
