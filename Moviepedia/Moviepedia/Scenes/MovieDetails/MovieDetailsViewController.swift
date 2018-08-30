@@ -18,6 +18,7 @@ protocol MovieDetailsDisplayLogic: class {
 
 class MovieDetailsViewController: UIViewController, MovieDetailsDisplayLogic {
 	var interactor: MovieDetailsBusinessLogic?
+	var router: (NSObjectProtocol & MovieDetailsRoutingLogic & MovieDetailsDataPassing)?
 	
 	@IBOutlet weak var backgroundImageView: UIImageView!
 	@IBOutlet weak var titleLabel: UILabel!
@@ -44,9 +45,13 @@ class MovieDetailsViewController: UIViewController, MovieDetailsDisplayLogic {
 		let viewController = self
 		let interactor = MovieDetailsInteractor()
 		let presenter = MovieDetailsPresenter()
+		let router = MovieDetailsRouter()
 		viewController.interactor = interactor
+		viewController.router = router
 		interactor.presenter = presenter
 		presenter.viewController = viewController
+		router.viewController = viewController
+		router.dataStore = interactor
 	}
 	
 	//MARK:- View lifecycle

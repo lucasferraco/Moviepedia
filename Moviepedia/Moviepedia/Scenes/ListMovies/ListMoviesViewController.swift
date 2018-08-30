@@ -139,7 +139,6 @@ class ListMoviesViewController: UIViewController, ListMoviesDisplayLogic {
 }
 
 extension ListMoviesViewController: MovieCollectionViewManagerProtocol {
-	
 	func getImageForMovie(with movieInfo: ListMovies.DisplayableMovieInfo, _ completion: @escaping (UIImage) -> Void) {
 		let request = ListMovies.GetMovieImage.Request(movieId: movieInfo.id)
 		interactor?.getMovieImage(with: request, completion)
@@ -148,5 +147,10 @@ extension ListMoviesViewController: MovieCollectionViewManagerProtocol {
 	
 	func getMoreMovies(_ completion: @escaping ([ListMovies.DisplayableMovieInfo]) -> Void) {
 		interactor?.getMoreMovies(completion)
+	}
+	
+	func didSelectMovie(with id: Int) {
+		interactor?.storeSelectedMovie(with: id)
+		router?.routeMovieDetails()
 	}
 }
