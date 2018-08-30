@@ -47,8 +47,10 @@ class MovieDetailsPresenter: MovieDetailsPresentationLogic {
 			releaseDate = DateFormatter.localizedString(from: dateObj, dateStyle: .short, timeStyle: .none)
 		}
 		
+		let image = response.backgroundImage ?? #imageLiteral(resourceName: "defaultMovieImage.png")
+		
 		let movieInfo = MovieDetails.MovieInfo(title: movieTitle, releaseDate: releaseDate, genres: genresString, overview: movie.overview)
-		let viewModel = MovieDetails.ShowMovieDetails.ViewModel(movieInfo: movieInfo, backgroundImage: response.backgroundImage)
+		let viewModel = MovieDetails.ShowMovieDetails.ViewModel(movieInfo: movieInfo, backgroundImage: image)
 		viewController?.displayMovieInfo(with: viewModel)
 	}
 }

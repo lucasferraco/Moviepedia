@@ -58,6 +58,9 @@ class MovieDetailsViewController: UIViewController, MovieDetailsDisplayLogic {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		setupNavBar()
+		setupViews()
+		
 		interactor?.getMovieDetails()
 	}
 	
@@ -72,6 +75,19 @@ class MovieDetailsViewController: UIViewController, MovieDetailsDisplayLogic {
 		genresLabel.text = viewModel.movieInfo.genres
 		overviewLabel.text = viewModel.movieInfo.overview
 		
-		backgroundImageView.image = viewModel.backgroundImage
+		backgroundImageView.image = viewModel.backgroundImage?.withOverlay()
+	}
+	
+	//MARK:- Auxiliary Methods
+	
+	private func setupNavBar() {
+		navigationController?.navigationBar.prefersLargeTitles = false
+	}
+	
+	private func setupViews() {
+		titleLabel.withShadow()
+		releaseDateLabel.withShadow()
+		genresLabel.withShadow()
+		overviewLabel.withShadow()
 	}
 }
