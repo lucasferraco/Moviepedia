@@ -15,6 +15,7 @@ import UIKit
 protocol ListMoviesPresentationLogic {
 	func presentMoviesList(with response: ListMovies.ListMovies.Response)
 	func presentMovieImage(with response: ListMovies.GetMovieImage.Response, _ completion: @escaping (UIImage) -> Void)
+	func presentNewMovies(with response: ListMovies.GetMoreMovies.Response, _ completion: @escaping ([ListMovies.DisplayableMovieInfo]) -> Void)
 }
 
 class ListMoviesPresenter: ListMoviesPresentationLogic {
@@ -64,6 +65,19 @@ class ListMoviesPresenter: ListMoviesPresentationLogic {
 		}
 	}
 	
+	func presentNewMovies(with response: ListMovies.GetMoreMovies.Response, _ completion: @escaping ([ListMovies.DisplayableMovieInfo]) -> Void) {
+		guard let moviesInfo = response.newMovies else { return }
+		
+		let newMovies = moviesInfo.map { (movie) -> ListMovies.DisplayableMovieInfo in
+			return displayableInfo(from: movie, genreDictionary: response.genres)
+		}
+		
+		presentedMoviesInfo += newMovies
+		DispatchQueue.main.async {
+			completion(newMovies)
+		}
+	}
+	
 	//MARK:- Auxiliary methods
 	
 	private func displayableInfo(from movie: Movie, genreDictionary: [Int : String]?) -> ListMovies.DisplayableMovieInfo {
@@ -101,6 +115,8 @@ class ListMoviesPresenter: ListMoviesPresentationLogic {
 			return "No internet connection.\nConnect to a network and try again."
 		case .Failure:
 			return "We had problems fetching the movies info, please try again later."
+		case .AllMoviesDownloaded:
+			return "All movies were already downloaded, enjoy!"
 		}
 	}
 }
