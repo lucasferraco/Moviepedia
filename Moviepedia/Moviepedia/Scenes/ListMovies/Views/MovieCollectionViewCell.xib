@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="MovieCollectionViewCell" reuseIdentifier="MovieCollectionViewCell" id="gTV-IL-0wX" customClass="MovieCollectionViewCell" customModule="Moviepedia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultMovieImage" translatesAutoresizingMaskIntoConstraints="NO" id="DN7-fH-f0I">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="dfI-VS-pn1">
+                        <rect key="frame" x="5" y="5" width="290" height="36"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <size key="shadowOffset" width="0.0" height="0.0"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Roe-Ok-5mt">
+                        <rect key="frame" x="5" y="373" width="290" height="22"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="G4a-CJ-AQm">
+                        <rect key="frame" x="5" y="346" width="290" height="22"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="G4a-CJ-AQm" secondAttribute="trailing" constant="5" id="1V4-WZ-9Uw"/>
+                <constraint firstAttribute="bottom" secondItem="DN7-fH-f0I" secondAttribute="bottom" id="2wA-zd-SO6"/>
+                <constraint firstItem="dfI-VS-pn1" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="AzY-Tj-LQD"/>
+                <constraint firstAttribute="trailing" secondItem="DN7-fH-f0I" secondAttribute="trailing" id="FAq-4G-xKR"/>
+                <constraint firstItem="Roe-Ok-5mt" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="N0V-5U-iku"/>
+                <constraint firstAttribute="trailing" secondItem="Roe-Ok-5mt" secondAttribute="trailing" constant="5" id="NZI-Ye-VNt"/>
+                <constraint firstAttribute="bottom" secondItem="Roe-Ok-5mt" secondAttribute="bottom" constant="5" id="R5H-fe-VdI"/>
+                <constraint firstItem="DN7-fH-f0I" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="SCW-XY-TMl"/>
+                <constraint firstAttribute="trailing" secondItem="dfI-VS-pn1" secondAttribute="trailing" constant="5" id="aJc-qz-qpa"/>
+                <constraint firstItem="G4a-CJ-AQm" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="d5S-MH-NlR"/>
+                <constraint firstItem="dfI-VS-pn1" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="eOb-0J-mb1"/>
+                <constraint firstItem="Roe-Ok-5mt" firstAttribute="top" secondItem="G4a-CJ-AQm" secondAttribute="bottom" constant="5" id="nfq-Jc-ssN"/>
+                <constraint firstItem="DN7-fH-f0I" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="yv6-Qd-HgJ"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="backgroundImageView" destination="DN7-fH-f0I" id="JIW-eH-zPp"/>
+                <outlet property="genresLabel" destination="Roe-Ok-5mt" id="Uc1-4o-CIU"/>
+                <outlet property="releaseDateLabel" destination="G4a-CJ-AQm" id="KgR-yO-UXC"/>
+                <outlet property="titleLabel" destination="dfI-VS-pn1" id="sVf-RF-bb0"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="defaultMovieImage" width="300" height="407"/>
+    </resources>
+</document>
